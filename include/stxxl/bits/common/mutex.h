@@ -170,8 +170,7 @@ public:
         lck.clear(std::memory_order_release);
     }
 #else
-    spin_lock()
-    { }
+    spin_lock() = default;
 #endif
 
     void lock()

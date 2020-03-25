@@ -718,12 +718,12 @@ endif(BUILD_TESTS)
 ###############################################################################
 # install header files
 
-install(FILES include/stxxl.h DESTINATION ${INSTALL_INCLUDE_DIR})
-install(DIRECTORY include/stxxl DESTINATION ${INSTALL_INCLUDE_DIR})
+# install(FILES include/stxxl.h DESTINATION ${INSTALL_INCLUDE_DIR})
+# install(DIRECTORY include/stxxl DESTINATION ${INSTALL_INCLUDE_DIR})
 
-# also copy the config file with build options!
-install(FILES ${PROJECT_BINARY_DIR}/include/stxxl/bits/config.h
-  DESTINATION ${INSTALL_INCLUDE_DIR}/stxxl/bits/)
+# # also copy the config file with build options!
+# install(FILES ${PROJECT_BINARY_DIR}/include/stxxl/bits/config.h
+#   DESTINATION ${INSTALL_INCLUDE_DIR}/stxxl/bits/)
 
 ###############################################################################
 # prepare pkg-config file
@@ -740,47 +740,47 @@ endif()
 ###############################################################################
 # export targets to cmake project config file
 
-if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.6)
-  # register package for use from the global CMake-registry
-  export(PACKAGE stxxl)
-endif()
+# if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.6)
+#   # register package for use from the global CMake-registry
+#   export(PACKAGE stxxl)
+# endif()
 
-# add stxxl library targets to the build tree export set
-export(TARGETS ${STXXL_EXPORTED_LIBS} FILE "${PROJECT_BINARY_DIR}/stxxl-targets.cmake")
+# # add stxxl library targets to the build tree export set
+# export(TARGETS ${STXXL_EXPORTED_LIBS} FILE "${PROJECT_BINARY_DIR}/stxxl-targets.cmake")
 
-# calculate absolute install paths
-foreach(dir LIB BIN INCLUDE CMAKE)
-  set(ABS_INSTALL_${dir}_DIR "${INSTALL_${dir}_DIR}")
-  if(NOT IS_ABSOLUTE "${ABS_INSTALL_${dir}_DIR}")
-    set(ABS_INSTALL_${dir}_DIR "${CMAKE_INSTALL_PREFIX}/${ABS_INSTALL_${dir}_DIR}")
-  endif()
-endforeach()
+# # calculate absolute install paths
+# foreach(dir LIB BIN INCLUDE CMAKE)
+#   set(ABS_INSTALL_${dir}_DIR "${INSTALL_${dir}_DIR}")
+#   if(NOT IS_ABSOLUTE "${ABS_INSTALL_${dir}_DIR}")
+#     set(ABS_INSTALL_${dir}_DIR "${CMAKE_INSTALL_PREFIX}/${ABS_INSTALL_${dir}_DIR}")
+#   endif()
+# endforeach()
 
-# calculate final installed include path relative to cmake install path
-file(RELATIVE_PATH REL_INCLUDE_DIR "${ABS_INSTALL_CMAKE_DIR}" "${ABS_INSTALL_INCLUDE_DIR}")
+# # calculate final installed include path relative to cmake install path
+# file(RELATIVE_PATH REL_INCLUDE_DIR "${ABS_INSTALL_CMAKE_DIR}" "${ABS_INSTALL_INCLUDE_DIR}")
 
-# create common stxxl-config.cmake file
-configure_file(misc/cmake/stxxl-version.cmake.in
-  "${PROJECT_BINARY_DIR}/stxxl-version.cmake" @ONLY)
+# # create common stxxl-config.cmake file
+# configure_file(misc/cmake/stxxl-version.cmake.in
+#   "${PROJECT_BINARY_DIR}/stxxl-version.cmake" @ONLY)
 
-# create stxxl-version.cmake file for the build tree
-set(CONF_INCLUDE_DIRS "${STXXL_INCLUDE_DIRS}")
-configure_file(misc/cmake/stxxl-config.cmake.in
-  "${PROJECT_BINARY_DIR}/stxxl-config.cmake" @ONLY)
+# # create stxxl-version.cmake file for the build tree
+# set(CONF_INCLUDE_DIRS "${STXXL_INCLUDE_DIRS}")
+# configure_file(misc/cmake/stxxl-config.cmake.in
+#   "${PROJECT_BINARY_DIR}/stxxl-config.cmake" @ONLY)
 
-# create stxxl-version.cmake file for the install tree
-set(CONF_INCLUDE_DIRS "\${STXXL_CMAKE_DIR}/${REL_INCLUDE_DIR}")
-configure_file(misc/cmake/stxxl-config.cmake.in
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/stxxl-config.cmake" @ONLY)
+# # create stxxl-version.cmake file for the install tree
+# set(CONF_INCLUDE_DIRS "\${STXXL_CMAKE_DIR}/${REL_INCLUDE_DIR}")
+# configure_file(misc/cmake/stxxl-config.cmake.in
+#   "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/stxxl-config.cmake" @ONLY)
 
-# install the stxxl-config.cmake and stxxl-version.cmake
-install(FILES
-  "${PROJECT_BINARY_DIR}/stxxl-version.cmake"
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/stxxl-config.cmake"
-  DESTINATION "${INSTALL_CMAKE_DIR}")
+# # install the stxxl-config.cmake and stxxl-version.cmake
+# install(FILES
+#   "${PROJECT_BINARY_DIR}/stxxl-version.cmake"
+#   "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/stxxl-config.cmake"
+#   DESTINATION "${INSTALL_CMAKE_DIR}")
 
-# Install the export set for use with the install-tree
-install(EXPORT stxxl-targets DESTINATION "${INSTALL_CMAKE_DIR}")
+# # Install the export set for use with the install-tree
+# install(EXPORT stxxl-targets DESTINATION "${INSTALL_CMAKE_DIR}")
 
 ###############################################################################
 # build tests and tools

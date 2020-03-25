@@ -138,7 +138,20 @@ private:
             perm[i] = i;
 
         stxxl::random_number<random_uniform_fast> rnd;
-        std::random_shuffle(perm.begin(), perm.end(), rnd _STXXL_FORCE_SEQUENTIAL);
+        random_shuffle(perm.begin(), perm.end(), rnd _STXXL_FORCE_SEQUENTIAL);
+    }
+
+    // std::random_shuffle is removed from c++17, second variant of:
+    // http://en.cppreference.com/w/cpp/algorithm/random_shuffle
+    template<class RandomIt, class RandomFunc>
+    inline void random_shuffle(RandomIt first, RandomIt last, RandomFunc&& r)
+    {
+        typename std::iterator_traits<RandomIt>::difference_type i, n;
+        n = last - first;
+        for (i = n-1; i > 0; --i) {
+            using std::swap;
+            swap(first[i], first[r(i+1)]);
+        }
     }
 
 public:
