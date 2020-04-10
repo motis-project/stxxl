@@ -14,6 +14,7 @@
  **************************************************************************/
 
 #include <algorithm>
+#include <functional>
 
 #include <stxxl/bits/config.h>
 #include <stxxl/bits/common/error_handling.h>
@@ -63,7 +64,7 @@ void request_queue_impl_1q::add_request(request_ptr& req)
     {
         scoped_mutex_lock Lock(m_queue_mutex);
         if (std::find_if(m_queue.begin(), m_queue.end(),
-                         bind2nd(file_offset_match(), req) _STXXL_FORCE_SEQUENTIAL)
+                         std::bind2nd(file_offset_match(), req) _STXXL_FORCE_SEQUENTIAL)
             != m_queue.end())
         {
             STXXL_ERRMSG("request submitted for a BID with a pending request");
