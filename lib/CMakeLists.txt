@@ -94,6 +94,9 @@ endif()
 
 # build stxxl STATIC library and link all programs again it
 add_library(stxxl STATIC ${LIBSTXXL_SOURCES})
+if (MSVC)
+  target_compile_definitions(stxxl PUBLIC NOMINMAX WIN32_LEAN_AND_MEAN)
+endif()
 set_target_properties(stxxl PROPERTIES OUTPUT_NAME "${STXXL_LIBNAME}")
 set_target_properties(stxxl PROPERTIES VERSION "${STXXL_VERSION_STRING}")
 target_include_directories(stxxl SYSTEM PUBLIC ${STXXL_INCLUDE_DIRS})
