@@ -23,16 +23,6 @@ project(stxxl)
 # for additional cmake scripts
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/cmake)
 
-# prohibit in-source builds
-if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
-  message(FATAL_ERROR "In-source builds are not allowed, use a separate build directory.")
-endif()
-
-# default to Debug building for single-config generators
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-  message("Defaulting CMAKE_BUILD_TYPE to Debug")
-  set(CMAKE_BUILD_TYPE "Debug")
-endif()
 
 # STXXL version string
 set(STXXL_VERSION_MAJOR "1")
