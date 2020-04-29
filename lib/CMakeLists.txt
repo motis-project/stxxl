@@ -100,6 +100,7 @@ endif()
 set_target_properties(stxxl PROPERTIES OUTPUT_NAME "${STXXL_LIBNAME}")
 set_target_properties(stxxl PROPERTIES VERSION "${STXXL_VERSION_STRING}")
 target_include_directories(stxxl SYSTEM PUBLIC ${STXXL_INCLUDE_DIRS})
+target_compile_options(stxxl PRIVATE -Wno-deprecated-declarations)
 # install(TARGETS stxxl
 #   EXPORT stxxl-targets
 #   ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
